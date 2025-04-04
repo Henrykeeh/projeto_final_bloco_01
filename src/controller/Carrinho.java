@@ -22,13 +22,13 @@ public class Carrinho implements CompraRepository {
 	@Override
 	public void somarValoresBrutos() {
 		double somaBruta = carrinho.stream().mapToDouble(Produto::getValorBruto).sum();
-		System.out.println("Total Bruto: R$" + somaBruta);
+		System.out.println("\nTotal Bruto: R$" + somaBruta);
 	}
 	
 	@Override
 	public void somarValoresLiquidos() {
 		double somaLiquida = carrinho.stream().mapToDouble(Produto::getValorLiquido).sum();
-		System.out.println("Total Líquido: R$" + somaLiquida);
+		System.out.println("\nTotal Líquido: R$" + somaLiquida);
 	}
 	
 	@Override

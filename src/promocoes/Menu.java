@@ -297,9 +297,9 @@ public class Menu {
 				boolean carrinhoAtivo = true;
 
 				while (carrinhoAtivo == true) {
-					System.out.println("Digite 1 para Comprar");
-					System.out.println("Digite 2 para retirar um item do carrinho");
-					System.out.println("Digite 3 para Sair");
+					System.out.println("\nDigite 1 para Comprar");
+					System.out.println("\nDigite 2 para retirar um item do carrinho");
+					System.out.println("\nDigite 3 para Sair");
 
 					opcaoCarrinho = lerScanner.nextInt();
 
