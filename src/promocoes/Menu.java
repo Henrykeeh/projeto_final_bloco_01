@@ -1,7 +1,8 @@
 package promocoes;
 
 import java.util.Scanner;
-
+import controller.Carrinho;
+import controller.IndiceInvalido;
 import model.Produto;
 import model.PromocaoEspecial;
 import model.PromocaoPercentual;
@@ -16,9 +17,11 @@ public class Menu {
 		boolean meuDescontoUsado = false;
 		int opcao;
 
+		Carrinho carrinhoCompras = new Carrinho();
+
 		Produto monitor = new Produto("Monitor 4k WideScreen", 2000);
 		Produto teclado = new Produto("Teclado Mecânico RGB", 200);
-		Produto mouse = new Produto("Mouse ulta leve RGB 2000 DPI", 250);
+		Produto mouse = new Produto("Mouse ultra leve RGB 2000 DPI", 250);
 		Produto memoriaRAM = new Produto("Memoria RAM 16GB DDR6", 300);
 		Produto cpu = new Produto("CPU 3nm Octa Core", 1000);
 		Produto placaVideo = new Produto("Placa de Vídeo 32GB vídeo RAM", 2300);
@@ -57,16 +60,25 @@ public class Menu {
 
 				String aceite;
 
-				System.out.println("\nO valor do produto " + monitor.getNome() + " é R$" + monitor.getValor());
-				System.out.println(
-						"\nPreço com desconto: " + new PromocaoPercentual(30).aplicarPromocao(monitor.getValor()));
+				System.out.println("\nO valor do produto " + monitor.getNome() + " é R$" + monitor.getValorBruto());
+
+				double valorDesconto = new PromocaoPercentual(30).aplicarPromocao(monitor.getValorBruto());
+
+				monitor.setValorLiquido(valorDesconto);
+
+				System.out.println("\nPreço com desconto: " + valorDesconto);
+
 				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
 
 				lerScanner.skip("\\R?");
 				aceite = lerScanner.nextLine();
 
 				if (aceite.equalsIgnoreCase("sim")) {
-					// Aguardando criação da classe carrinho
+
+					carrinhoCompras.adicionar(monitor);
+
+					System.out.println("\nProduto adicionado com sucesso!");
+
 				}
 
 				System.out.println("\nVoltando ao Menu Principal...");
@@ -77,16 +89,25 @@ public class Menu {
 
 				String aceite;
 
-				System.out.println("\nO valor do produto " + teclado.getNome() + " é R$" + teclado.getValor());
-				System.out.println(
-						"\nPreço com desconto: " + new PromocaoPercentual(35).aplicarPromocao(teclado.getValor()));
+				System.out.println("\nO valor do produto " + teclado.getNome() + " é R$" + teclado.getValorBruto());
+
+				double valorDesconto = new PromocaoPercentual(35).aplicarPromocao(teclado.getValorBruto());
+
+				teclado.setValorLiquido(valorDesconto);
+
+				System.out.println("\nPreço com desconto: " + valorDesconto);
+
 				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
 
 				lerScanner.skip("\\R?");
 				aceite = lerScanner.nextLine();
 
 				if (aceite.equalsIgnoreCase("sim")) {
-					// Aguardando criação da classe carrinho
+
+					carrinhoCompras.adicionar(teclado);
+
+					System.out.println("\nProduto adicionado com sucesso!");
+
 				}
 
 				System.out.println("\nVoltando ao Menu Principal...");
@@ -96,16 +117,25 @@ public class Menu {
 
 				String aceite;
 
-				System.out.println("\nO valor do produto " + mouse.getNome() + " é R$" + mouse.getValor());
-				System.out.println(
-						"\nPreço com desconto: " + new PromocaoPercentual(50).aplicarPromocao(mouse.getValor()));
+				System.out.println("\nO valor do produto " + mouse.getNome() + " é R$" + mouse.getValorBruto());
+
+				double valorDesconto = new PromocaoPercentual(50).aplicarPromocao(mouse.getValorBruto());
+
+				mouse.setValorLiquido(valorDesconto);
+
+				System.out.println("\nPreço com desconto: " + valorDesconto);
+
 				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
 
 				lerScanner.skip("\\R?");
 				aceite = lerScanner.nextLine();
 
 				if (aceite.equalsIgnoreCase("sim")) {
-					// Aguardando criação da classe carrinho
+
+					carrinhoCompras.adicionar(mouse);
+
+					System.out.println("\nProduto adicionado com sucesso!");
+
 				}
 
 				System.out.println("\nVoltando ao Menu Principal...");
@@ -115,16 +145,26 @@ public class Menu {
 
 				String aceite;
 
-				System.out.println("\nO valor do produto " + memoriaRAM.getNome() + " é R$" + memoriaRAM.getValor());
-				System.out.println(
-						"\nPreço com desconto: " + new PromocaoPercentual(40).aplicarPromocao(memoriaRAM.getValor()));
+				System.out
+						.println("\nO valor do produto " + memoriaRAM.getNome() + " é R$" + memoriaRAM.getValorBruto());
+
+				double valorDesconto = new PromocaoPercentual(40).aplicarPromocao(memoriaRAM.getValorBruto());
+
+				memoriaRAM.setValorLiquido(valorDesconto);
+
+				System.out.println("\nPreço com desconto: " + valorDesconto);
+
 				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
 
 				lerScanner.skip("\\R?");
 				aceite = lerScanner.nextLine();
 
 				if (aceite.equalsIgnoreCase("sim")) {
-					// Aguardando criação da classe carrinho
+
+					carrinhoCompras.adicionar(memoriaRAM);
+
+					System.out.println("\nProduto adicionado com sucesso!");
+
 				}
 
 				System.out.println("\nVoltando ao Menu Principal...");
@@ -154,21 +194,28 @@ public class Menu {
 
 							String aceite;
 
-							System.out.println("\nO valor do produto " + cpu.getNome() + " é R$" + cpu.getValor());
-							System.out.println("\nPreço com desconto: "
-									+ new PromocaoEspecial(60).aplicarPromocao(cpu.getValor()));
-							System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+							System.out.println("\nO valor do produto " + cpu.getNome() + " é R$" + cpu.getValorBruto());
+
+							double valorDesconto = new PromocaoEspecial(60).aplicarPromocao(cpu.getValorBruto());
+
+							cpu.setValorLiquido(valorDesconto);
+
+							System.out.println("\nPreço com desconto: " + valorDesconto);
+
+							System.out.println("\nDeseja adicionar ao Carrinho? (Sim/Não)");
 
 							lerScanner.skip("\\R?");
 							aceite = lerScanner.nextLine();
 
 							if (aceite.equalsIgnoreCase("sim")) {
-								
+
 								meuDesconto = false;
 								meuDescontoUsado = true;
-								
-								// Aguardando criação da classe carrinho
-								// método para adicionar ao carrinho
+
+								carrinhoCompras.adicionar(cpu);
+
+								System.out.println("\nProduto adicionado com sucesso!");
+
 							}
 
 							System.out.println("\nVoltando ao Menu Principal...");
@@ -176,24 +223,32 @@ public class Menu {
 						}
 
 						case 2 -> {
-							
+
 							String aceite;
 
-							System.out.println("\nO valor do produto " + placaVideo.getNome() + " é R$" + placaVideo.getValor());
-							System.out.println("\nPreço com desconto: "
-									+ new PromocaoEspecial(60).aplicarPromocao(placaVideo.getValor()));
-							System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+							System.out.println("\nO valor do produto " + placaVideo.getNome() + " é R$"
+									+ placaVideo.getValorBruto());
+
+							double valorDesconto = new PromocaoEspecial(60).aplicarPromocao(placaVideo.getValorBruto());
+
+							placaVideo.setValorLiquido(valorDesconto);
+
+							System.out.println("\nPreço com desconto: " + valorDesconto);
+
+							System.out.println("\nDeseja adicionar ao Carrinho? (Sim/Não)");
 
 							lerScanner.skip("\\R?");
 							aceite = lerScanner.nextLine();
 
 							if (aceite.equalsIgnoreCase("sim")) {
-								
+
 								meuDesconto = false;
 								meuDescontoUsado = true;
-								
-								// Aguardando criação da classe carrinho
-								// método para adicionar ao carrinho
+
+								carrinhoCompras.adicionar(placaVideo);
+
+								System.out.println("\nProduto adicionado com sucesso!");
+
 							}
 
 							System.out.println("\nVoltando ao Menu Principal...");
@@ -211,6 +266,7 @@ public class Menu {
 						default -> {
 							System.out.println("\nOpção inválida!");
 
+							meuDesconto = false;
 							meuDescontoUsado = false;
 						}
 
@@ -226,14 +282,66 @@ public class Menu {
 			}
 
 			case 6 -> {
-				System.out.println("Meu carrinho: ");
-				// método para adicionar ao carrinho
-				// método para ver valor total e itens unitários
+				System.out.println("*************************************************");
+				System.out.println("                Meu Carrinho                     ");
+				System.out.println("*************************************************");
+				System.out.println("Meus Produtos:                                   ");
+
+				carrinhoCompras.listarProdutosValores();
+
+				carrinhoCompras.somarValoresBrutos();
+
+				carrinhoCompras.somarValoresLiquidos();
+
+				int opcaoCarrinho;
+				boolean carrinhoAtivo = true;
+
+				while (carrinhoAtivo == true) {
+					System.out.println("Digite 1 para Comprar");
+					System.out.println("Digite 2 para retirar um item do carrinho");
+					System.out.println("Digite 3 para Sair");
+
+					opcaoCarrinho = lerScanner.nextInt();
+
+					switch (opcaoCarrinho) {
+
+					case 1 -> {
+						System.out.println("Compra efetuada com sucesso! Aproveite!");
+						return;
+					}
+
+					case 2 -> {
+						System.out.println("Qual item deseja retirar? ");
+
+						carrinhoCompras.listarProdutosValores();
+
+						int opcaoRemover;
+
+						opcaoRemover = lerScanner.nextInt();
+
+						try {
+							carrinhoCompras.deletar(opcaoRemover);
+						} catch (IndiceInvalido e) {
+							System.err.println("Exceção: " + e);
+							System.out.println("\nVoltando ao Menu Principal...");
+							carrinhoAtivo = false;
+
+						}
+					}
+
+					case 3 -> {
+						carrinhoAtivo = false;
+						break;
+					}
+
+					default -> {
+						System.out.println("Opção inválida!");
+
+					}
+					}
+				}
 			}
 
-			default -> {
-				System.out.println("Opção inválida!");
-			}
 			}
 		}
 

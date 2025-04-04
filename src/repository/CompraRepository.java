@@ -1,13 +1,18 @@
 package repository;
 
-import java.util.ArrayList;
 import model.Produto;
 
 public interface CompraRepository {
 
-	public ArrayList<Produto> listarTodas();
+	public void listarProdutosValores();
 
-	public void deletar(Produto produto);
+	public void deletar(int indice);
 
 	public void adicionar(Produto produto);
+	
+	public void somarValoresBrutos();
+	
+	public void somarValoresLiquidos();
+	
+	
 }
