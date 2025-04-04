@@ -2,6 +2,10 @@ package promocoes;
 
 import java.util.Scanner;
 
+import model.Produto;
+import model.PromocaoEspecial;
+import model.PromocaoPercentual;
+
 public class Menu {
 
 	public static void main(String[] args) {
@@ -10,10 +14,14 @@ public class Menu {
 
 		boolean meuDesconto = true;
 		boolean meuDescontoUsado = false;
-		float valor;
 		int opcao;
-		String produtos[] = { "Monitor WideScreen 4k", "CPU 3nm octa core", "Memória RAM DDR9 32 GB",
-				"Caixa de Som 3D sound", "Mouse RGB 500 DPI", "Teclado Mecânico RGB" };
+
+		Produto monitor = new Produto("Monitor 4k WideScreen", 2000);
+		Produto teclado = new Produto("Teclado Mecânico RGB", 200);
+		Produto mouse = new Produto("Mouse ulta leve RGB 2000 DPI", 250);
+		Produto memoriaRAM = new Produto("Memoria RAM 16GB DDR6", 300);
+		Produto cpu = new Produto("CPU 3nm Octa Core", 1000);
+		Produto placaVideo = new Produto("Placa de Vídeo 32GB vídeo RAM", 2300);
 
 		while (true) {
 
@@ -23,11 +31,11 @@ public class Menu {
 			System.out.println("                                                       ");
 			System.out.println("*******************************************************");
 			System.out.println("                                                       ");
-			System.out.println("       1 - " + produtos[0] + " - 30% off               ");
-			System.out.println("       2 - " + produtos[1] + " - 35% off               ");
-			System.out.println("       3 - " + produtos[2] + " - 50% off               ");
-			System.out.println("       4 - " + produtos[3] + " - 50% off               ");
-			System.out.println("       5 - Meu Desconto - Descontos especiais para mim!");
+			System.out.println("       1 - " + monitor.getNome() + " - 30% off               ");
+			System.out.println("       2 - " + teclado.getNome() + " - 35% off               ");
+			System.out.println("       3 - " + mouse.getNome() + " - 50% off               ");
+			System.out.println("       4 - " + memoriaRAM.getNome() + " - 40% off               ");
+			System.out.println("       5 - Meu Desconto - Descontos especiais para você!");
 			System.out.println("       6 - Ver Carrinho                                ");
 			System.out.println("       7 - Sair                                        ");
 			System.out.println("*******************************************************");
@@ -44,77 +52,174 @@ public class Menu {
 			}
 
 			switch (opcao) {
-			// Será atualizado com classes e métodos posteriormente.
+
 			case 1 -> {
-				System.out.println("\nO valor do produto ");
+
+				String aceite;
+
+				System.out.println("\nO valor do produto " + monitor.getNome() + " é R$" + monitor.getValor());
+				System.out.println(
+						"\nPreço com desconto: " + new PromocaoPercentual(30).aplicarPromocao(monitor.getValor()));
+				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+
+				lerScanner.skip("\\R?");
+				aceite = lerScanner.nextLine();
+
+				if (aceite.equalsIgnoreCase("sim")) {
+					// Aguardando criação da classe carrinho
+				}
+
+				System.out.println("\nVoltando ao Menu Principal...");
+
 			}
 
 			case 2 -> {
-				System.out.println("\nO valor do produto ");
+
+				String aceite;
+
+				System.out.println("\nO valor do produto " + teclado.getNome() + " é R$" + teclado.getValor());
+				System.out.println(
+						"\nPreço com desconto: " + new PromocaoPercentual(35).aplicarPromocao(teclado.getValor()));
+				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+
+				lerScanner.skip("\\R?");
+				aceite = lerScanner.nextLine();
+
+				if (aceite.equalsIgnoreCase("sim")) {
+					// Aguardando criação da classe carrinho
+				}
+
+				System.out.println("\nVoltando ao Menu Principal...");
 			}
 
 			case 3 -> {
-				System.out.println("\nO valor do produto ");
+
+				String aceite;
+
+				System.out.println("\nO valor do produto " + mouse.getNome() + " é R$" + mouse.getValor());
+				System.out.println(
+						"\nPreço com desconto: " + new PromocaoPercentual(50).aplicarPromocao(mouse.getValor()));
+				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+
+				lerScanner.skip("\\R?");
+				aceite = lerScanner.nextLine();
+
+				if (aceite.equalsIgnoreCase("sim")) {
+					// Aguardando criação da classe carrinho
+				}
+
+				System.out.println("\nVoltando ao Menu Principal...");
 			}
 
 			case 4 -> {
-				System.out.println("\nO valor do produto ");
+
+				String aceite;
+
+				System.out.println("\nO valor do produto " + memoriaRAM.getNome() + " é R$" + memoriaRAM.getValor());
+				System.out.println(
+						"\nPreço com desconto: " + new PromocaoPercentual(40).aplicarPromocao(memoriaRAM.getValor()));
+				System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+
+				lerScanner.skip("\\R?");
+				aceite = lerScanner.nextLine();
+
+				if (aceite.equalsIgnoreCase("sim")) {
+					// Aguardando criação da classe carrinho
+				}
+
+				System.out.println("\nVoltando ao Menu Principal...");
 			}
 
 			case 5 -> {
 
 				int opcaoMeuDesconto;
-				
+
 				if (meuDescontoUsado == false) {
-					
-				do {
 
-					System.out.println("\nEscolha apenas um produto da lista especial para adicioná-lo ao carrinho: ");
-					System.out.println("       1 -                                                ");
-					System.out.println("       2 -                                                ");
-					System.out.println("       3 - Sair                                           ");
+					do {
 
-					opcaoMeuDesconto = lerScanner.nextInt();
+						System.out.println(
+								"\nEscolha apenas um produto da lista especial para adicioná-lo ao carrinho: ");
+						System.out.println(
+								"\nTemos também um desconto especial de 20% para compras feitas em dia/mês equivalentes! (EX 04/04)");
+						System.out.println("       1 - " + cpu.getNome() + " 60% off");
+						System.out.println("       2 - " + placaVideo.getNome() + " 60% off");
+						System.out.println("       3 - Sair                                           ");
 
-					switch (opcaoMeuDesconto) {
+						opcaoMeuDesconto = lerScanner.nextInt();
 
-					case 1 -> {
-						System.out.println("\nO valor do produto ");
-						// método para adicionar ao carrinho
-						
-						meuDesconto = false;
-						meuDescontoUsado = true;
-					}
+						switch (opcaoMeuDesconto) {
 
-					case 2 -> {
-						System.out.println("\nO valor do produto ");
-						// método para adicionar ao carrinho
-						
-						meuDesconto = false;
-						meuDescontoUsado = true;
-					}
+						case 1 -> {
 
-					case 3 -> {
-						System.out.println("\nVoltando ao Menu Principal...");
+							String aceite;
 
-						meuDesconto = false;
-						meuDescontoUsado = false;
-						
-						break;
-					}
+							System.out.println("\nO valor do produto " + cpu.getNome() + " é R$" + cpu.getValor());
+							System.out.println("\nPreço com desconto: "
+									+ new PromocaoEspecial(60).aplicarPromocao(cpu.getValor()));
+							System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
 
-					default -> {
-						System.out.println("\nOpção inválida!");
-						
-						meuDescontoUsado = false;
-					}
+							lerScanner.skip("\\R?");
+							aceite = lerScanner.nextLine();
 
-					}
-				
-				} while (meuDesconto == true);
-				
+							if (aceite.equalsIgnoreCase("sim")) {
+								
+								meuDesconto = false;
+								meuDescontoUsado = true;
+								
+								// Aguardando criação da classe carrinho
+								// método para adicionar ao carrinho
+							}
+
+							System.out.println("\nVoltando ao Menu Principal...");
+
+						}
+
+						case 2 -> {
+							
+							String aceite;
+
+							System.out.println("\nO valor do produto " + placaVideo.getNome() + " é R$" + placaVideo.getValor());
+							System.out.println("\nPreço com desconto: "
+									+ new PromocaoEspecial(60).aplicarPromocao(placaVideo.getValor()));
+							System.out.println("Deseja adicionar ao Carrinho? (Sim/Não)");
+
+							lerScanner.skip("\\R?");
+							aceite = lerScanner.nextLine();
+
+							if (aceite.equalsIgnoreCase("sim")) {
+								
+								meuDesconto = false;
+								meuDescontoUsado = true;
+								
+								// Aguardando criação da classe carrinho
+								// método para adicionar ao carrinho
+							}
+
+							System.out.println("\nVoltando ao Menu Principal...");
+
+						}
+
+						case 3 -> {
+							System.out.println("\nVoltando ao Menu Principal...");
+
+							meuDesconto = false;
+							meuDescontoUsado = false;
+
+						}
+
+						default -> {
+							System.out.println("\nOpção inválida!");
+
+							meuDescontoUsado = false;
+						}
+
+						}
+
+					} while (meuDesconto == true);
+
 				}
-				
+
 				else {
 					System.out.println("A opção Meu Desconto já foi utilizada!");
 				}
